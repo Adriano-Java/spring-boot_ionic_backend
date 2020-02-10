@@ -1,6 +1,10 @@
 package br.com.ans.cursomc.resources;
 
 import br.com.ans.cursomc.domain.Categoria;
+import br.com.ans.cursomc.services.CategoriaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,18 +23,22 @@ import java.util.List;
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Categoria> listar(){
+    @Autowired
+    private CategoriaService service;
 
-        Categoria categoria1 = new Categoria(1, "Informática");
-        Categoria categoria2 = new Categoria(2, "Escritório");
+    /*Para que o método mapeie o serviço, use 'value' indicando o id
+    * do objeto/tabela.
+    * Use ReponseEntity<> no lugar do objeto que normalmente seria utilizado.
+    * Esse é um objeto especial do Spring que encapsula e trata toda a transação
+    * HTTP realizada pelo serviço REST.
+    * O método find realiza o bind com o serviço para realizar a persistência.
+    * Use @PathVariable para mapear no método o id*/
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> find(@PathVariable Integer id){
 
-        List<Categoria> lista = new ArrayList<>();
+        Categoria objeto = service.buscar(id);
 
-        lista.add(categoria1);
-        lista.add(categoria2);
-
-        return lista;
+        return ResponseEntity.ok().body(objeto);
 
     }
 

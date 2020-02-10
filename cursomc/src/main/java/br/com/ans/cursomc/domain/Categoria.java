@@ -1,5 +1,9 @@
 package br.com.ans.cursomc.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -8,10 +12,13 @@ import java.util.Objects;
  * Adriano Neto Da Silva
  * 09/02/2020
  */
+@Entity
 public class Categoria implements Serializable {
 
     private static final long serialVersionUID = -3778514197772055155L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
 

@@ -1,5 +1,6 @@
 package br.com.ans.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.persistence.*;
@@ -27,9 +28,12 @@ public class Produto implements Serializable {
     private String nome;
     private Double preco;
 
-    /*relação muitos para muitos*/
+    /*@ManyToMany = relação muitos para muitos*/
+    /*@JoinTable = indica qual tabela será a responsável pela relação muitos pra muitos*/
+    /*@JsonBackReference = Evita a referência ciclica do relacionamento entre entidades, é
+    * complemento da anotação @JsonManagedReference*/
+    @JsonBackReference
     @ManyToMany
-    /*indica qual tabela será a responsável pela relação muitos pra muitos*/
     @JoinTable(/*Aqui é criada a tabela responsável pela relação entre as tabelas categoria e produto*/
             name = "PRODUTO_CATEGORIA",/*nome da tabela*/
             joinColumns = @JoinColumn(name = "produto_id"),/*definição da coluna que contém a chave estrangeira*/
@@ -40,10 +44,12 @@ public class Produto implements Serializable {
     public Produto(){}
 
     public Produto(Integer id, String nome, Double preco) {
+
         super();
         this.id = id;
         this.nome = nome;
         this.preco = preco;
+
     }
 
     public Integer getId() {
@@ -90,4 +96,5 @@ public class Produto implements Serializable {
     public int hashCode() {
         return Objects.hash(getId());
     }
+
 }

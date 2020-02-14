@@ -1,5 +1,7 @@
 package br.com.ans.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,17 +23,21 @@ public class Categoria implements Serializable {
     private Integer id;
     private String nome;
 
-    /*mappeBy espelha o relacionamento entre as tabelas
-    * sendo desnecessário refazer o JoinTable para esta
-    * entidade*/
+    /*@JsonManagedReference = Evita a referência ciclica no JSON para relacionamentos entre entidades*/
+    /*mappeBy  = espelha o relacionamento entre as tabelas sendo desnecessário refazer o JoinTable para a
+    * entidade do outro lado do relacionamento*/
+    @JsonManagedReference
     @ManyToMany(mappedBy = "categorias")
     private List<Produto> produtos = new ArrayList<Produto>();
 
     public Categoria(){}
 
     public Categoria(Integer id, String nome) {
+
+        super();
         this.id = id;
         this.nome = nome;
+
     }
 
     public Integer getId() {

@@ -2,6 +2,7 @@ package br.com.ans.cursomc.domain;
 
 import br.com.ans.cursomc.domain.enums.TipoCliente;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
@@ -10,16 +11,24 @@ import java.util.*;
  * Adriano Neto Da Silva
  * 15/02/2020
  */
+@Entity
 public class Cliente implements Serializable {
     private static final long serialVersionUID = -2400624724961948563L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String nome;
     private String email;
     private String cpfOuCnpj;
     private Integer tipo;
 
+    @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
+
+    @ElementCollection/*mapeia uma coleção de itens associados a uma classe*/
+    @CollectionTable(name = "TELEFONE")/*configura uma tabela com uma coleção mapeada*/
     private Set<String> telefones = new HashSet<>();
 
     public Cliente(){}

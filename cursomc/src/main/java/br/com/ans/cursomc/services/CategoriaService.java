@@ -13,20 +13,15 @@ import java.util.Optional;
  * Adriano Neto Da Silva
  * 09/02/2020
  */
-/*Anotação que torna uma classe em service*/
-@Service
+@Service/*Anotação que torna uma classe em service*/
 public class CategoriaService {
-
-    /*Realiza a injeção (instancia o repository) do repository na classe*/
-    @Autowired
+    @Autowired/*Realiza a injeção (instancia o repository) do repository na classe*/
     private CategoriaRepository repository;
 
     public Categoria buscar(Integer id){
-
         Optional<Categoria> objeto = repository.findById(id);
         return objeto.orElseThrow(() -> new ObjectNotFoundException(
                 id, Categoria.class.getName() + " categoria não encontrada!")
         );
-
     }
 }

@@ -18,7 +18,6 @@ import java.util.Objects;
 @Entity
 @RequestMapping(value = "/produtos")
 public class Produto implements Serializable {
-
     private static final long serialVersionUID = 4527262035783040232L;
 
     @Id
@@ -44,12 +43,10 @@ public class Produto implements Serializable {
     public Produto(){}
 
     public Produto(Integer id, String nome, Double preco) {
-
         super();
         this.id = id;
         this.nome = nome;
         this.preco = preco;
-
     }
 
     public Integer getId() {
@@ -96,5 +93,4 @@ public class Produto implements Serializable {
     public int hashCode() {
         return Objects.hash(getId());
     }
-
 }

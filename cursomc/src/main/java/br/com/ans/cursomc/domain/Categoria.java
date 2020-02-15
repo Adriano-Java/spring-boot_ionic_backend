@@ -15,7 +15,6 @@ import java.util.Objects;
  */
 @Entity
 public class Categoria implements Serializable {
-
     private static final long serialVersionUID = -3778514197772055155L;
 
     @Id
@@ -33,11 +32,9 @@ public class Categoria implements Serializable {
     public Categoria(){}
 
     public Categoria(Integer id, String nome) {
-
         super();
         this.id = id;
         this.nome = nome;
-
     }
 
     public Integer getId() {
@@ -77,5 +74,4 @@ public class Categoria implements Serializable {
     public int hashCode() {
         return Objects.hash(getId(), getNome());
     }
-
 }

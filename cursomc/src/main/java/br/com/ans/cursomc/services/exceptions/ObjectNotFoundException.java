@@ -6,7 +6,6 @@ package br.com.ans.cursomc.services.exceptions;
  * 14/02/2020
  */
 public class ObjectNotFoundException extends RuntimeException{
-
     private static final long serialVersionUID = -47202518122936345L;
 
     public ObjectNotFoundException(String mensagem) {
@@ -16,5 +15,4 @@ public class ObjectNotFoundException extends RuntimeException{
     public ObjectNotFoundException(String mensagem, Throwable causa){
         super(mensagem, causa);
     }
-
 }

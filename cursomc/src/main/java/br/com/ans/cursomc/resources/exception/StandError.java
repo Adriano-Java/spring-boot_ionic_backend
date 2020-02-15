@@ -8,7 +8,6 @@ import java.io.Serializable;
  * 14/02/2020
  */
 public class StandError implements Serializable {
-
     private static final long serialVersionUID = 3459087418530649582L;
 
     private Integer status;
@@ -45,5 +44,4 @@ public class StandError implements Serializable {
     public void setTimeStamp(Long timeStamp) {
         this.timeStamp = timeStamp;
     }
-
 }

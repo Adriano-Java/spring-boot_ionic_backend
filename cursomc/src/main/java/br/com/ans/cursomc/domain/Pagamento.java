@@ -2,6 +2,7 @@ package br.com.ans.cursomc.domain;
 
 import br.com.ans.cursomc.domain.enums.EstadoPagamento;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -10,12 +11,22 @@ import java.util.Objects;
  * Adriano Neto Da Silva
  * 16/02/2020
  */
+@Entity
 public class Pagamento implements Serializable {
     private static final long serialVersionUID = -1524946843780760873L;
 
+    /*
+    O id do pagamento deve ser o mesmo id do pedido, por essa razão
+    não se utiliza o @GeneratedValue nessa situação.
+     */
+    @Id
     private Integer id;
+
     private EstadoPagamento estado;
 
+    @OneToOne/*Relacionamento um pra um*/
+    @JoinColumn(name = "pedido_id")/*para rastrear o id do pedido na base de dados*/
+    @MapsId/*Permite compartilhar uma mesma chave primária entre duas entidades*/
     private Pedido pedido;
 
     public Pagamento() {

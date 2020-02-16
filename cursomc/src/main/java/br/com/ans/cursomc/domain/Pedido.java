@@ -1,5 +1,6 @@
 package br.com.ans.cursomc.domain;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -9,12 +10,22 @@ import java.util.Objects;
  * Adriano Neto Da Silva
  * 16/02/2020
  */
+@Entity
 public class Pedido implements Serializable {
     private static final long serialVersionUID = 7970777109609359837L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private Date instante;
 
+    /*
+    * cascade  permite que a execução de alguma ação na entidade de destino,
+    * seja também aplicada à entidade associada.
+    * mappeBy está relacionando o atributo pedido em Pagamento com esta
+    * entidade*/
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
     private Pagamento pagamento;
     private Cliente cliente;
     private Endereco enderecoDeEntrega;

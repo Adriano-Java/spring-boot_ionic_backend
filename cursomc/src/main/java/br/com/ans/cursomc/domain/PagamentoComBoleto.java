@@ -2,6 +2,7 @@ package br.com.ans.cursomc.domain;
 
 import br.com.ans.cursomc.domain.enums.EstadoPagamento;
 
+import javax.persistence.Entity;
 import java.util.Date;
 
 /**
@@ -9,6 +10,7 @@ import java.util.Date;
  * Adriano Neto Da Silva
  * 16/02/2020
  */
+@Entity
 public class PagamentoComBoleto extends Pagamento{
     private Date dataVencimento;
     private Date dataPagamento;

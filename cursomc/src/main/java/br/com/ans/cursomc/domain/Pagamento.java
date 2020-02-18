@@ -1,6 +1,7 @@
 package br.com.ans.cursomc.domain;
 
 import br.com.ans.cursomc.domain.enums.EstadoPagamento;
+import sun.java2d.pipe.SolidTextRenderer;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,8 +12,14 @@ import java.util.Objects;
  * Adriano Neto Da Silva
  * 16/02/2020
  */
+/*
+@Inheritance é uma anotação para gerar as tabelas de acordo a herança existente entre a super-classe
+e suas filhas. Em strategy, pode-se escolher gerar tabela única (SINGLE-TABLE) para herança de duas ou
+mais classes, ou  gerar uma tabela para cada classe filha (JOINED).
+ */
 @Entity
-public class Pagamento implements Serializable {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Pagamento implements Serializable {
     private static final long serialVersionUID = -1524946843780760873L;
 
     /*
@@ -22,7 +29,7 @@ public class Pagamento implements Serializable {
     @Id
     private Integer id;
 
-    private EstadoPagamento estado;
+    private Integer estado;
 
     @OneToOne/*Relacionamento um pra um*/
     @JoinColumn(name = "pedido_id")/*para rastrear o id do pedido na base de dados*/
@@ -34,7 +41,7 @@ public class Pagamento implements Serializable {
 
     public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
         this.id = id;
-        this.estado = estado;
+        this.estado = estado.getCod();
         this.pedido = pedido;
     }
 
@@ -47,11 +54,11 @@ public class Pagamento implements Serializable {
     }
 
     public EstadoPagamento getEstado() {
-        return estado;
+        return EstadoPagamento.toEnum(estado);
     }
 
     public void setEstado(EstadoPagamento estado) {
-        this.estado = estado;
+        this.estado = estado.getCod();
     }
 
     public Pedido getPedido() {

@@ -33,6 +33,7 @@ public class Cliente implements Serializable {
     @CollectionTable(name = "TELEFONE")/*configura uma tabela com uma coleção mapeada*/
     private Set<String> telefones = new HashSet<>();
 
+    @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();
 
     public Cliente(){}

@@ -2,11 +2,14 @@ package br.com.ans.cursomc.domain;
 
 import br.com.ans.cursomc.domain.enums.EstadoPagamento;
 
+import javax.persistence.Entity;
+
 /**
  * cursomc
  * Adriano Neto Da Silva
  * 16/02/2020
  */
+@Entity
 public class PagamentoComCartao extends Pagamento{
     private Integer numeroParcelas;
 

@@ -39,6 +39,7 @@ public class Produto implements Serializable {
     private List<Categoria> categorias = new ArrayList<>();
 
     /*A entidade Produto deve saber quais os itens são associados a ela*/
+    @OneToMany(mappedBy = "id.produto")
     private Set<ItemPedido> itens = new HashSet<>();
 
     public Produto(){}

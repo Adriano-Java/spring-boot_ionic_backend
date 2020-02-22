@@ -1,5 +1,7 @@
 package br.com.ans.cursomc.domain;
 
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -8,10 +10,13 @@ import java.util.Objects;
  * Adriano Neto Da Silva
  * 20/02/2020
  */
+@Entity
 public class ItemPedido implements Serializable {
     private static final long serialVersionUID = -4779941607721520931L;
 
+    @EmbeddedId
     private ItemPedidoPK id = new ItemPedidoPK();
+
     private Double desconto;
     private Integer quantidade;
     private Double preco;

@@ -39,6 +39,7 @@ public class Pedido implements Serializable {
     private Endereco enderecoDeEntrega;
 
     /*Um pedido pode conter 'N' itens*/
+    @OneToMany(mappedBy = "id.pedido")
     private Set<ItemPedido> itens = new HashSet<>();
 
     public Pedido(){}

@@ -1,6 +1,7 @@
 package br.com.ans.cursomc.domain;
 
 import br.com.ans.cursomc.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import sun.java2d.pipe.SolidTextRenderer;
 
 import javax.persistence.*;
@@ -31,6 +32,7 @@ public abstract class Pagamento implements Serializable {
 
     private Integer estado;
 
+    @JsonBackReference
     @OneToOne/*Relacionamento um pra um*/
     @JoinColumn(name = "pedido_id")/*para rastrear o id do pedido na base de dados*/
     @MapsId/*Permite compartilhar uma mesma chave primária entre duas entidades*/

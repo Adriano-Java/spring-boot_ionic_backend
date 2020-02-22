@@ -1,6 +1,7 @@
 package br.com.ans.cursomc.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.persistence.*;
@@ -39,6 +40,11 @@ public class Produto implements Serializable {
     private List<Categoria> categorias = new ArrayList<>();
 
     /*A entidade Produto deve saber quais os itens são associados a ela*/
+    /*
+    como os itens já serão serializados pela relação Pedido - ItemProduto,
+    @JsonIgnore deve ser utilizado aqui para evitar serialização cíclica dos itens.
+     */
+    @JsonIgnore
     @OneToMany(mappedBy = "id.produto")
     private Set<ItemPedido> itens = new HashSet<>();
 
@@ -51,6 +57,12 @@ public class Produto implements Serializable {
         this.preco = preco;
     }
 
+    /*
+    Métodos get são automaticamente serializados. Como os itens já serão serializados
+    pela relação Pedido - ItemPedido, @JsonIgnore deve ser usado aqui para evitar uma
+    serialização cíclica dos itens.
+     */
+    @JsonIgnore
     public List<Pedido> getPedidos() {
         List<Pedido> lista = new ArrayList<>();
         itens.forEach(item -> {

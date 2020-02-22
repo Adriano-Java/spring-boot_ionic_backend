@@ -1,5 +1,7 @@
 package br.com.ans.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serializable;
@@ -14,6 +16,11 @@ import java.util.Objects;
 public class ItemPedido implements Serializable {
     private static final long serialVersionUID = -4779941607721520931L;
 
+    /*
+    Nos relacionamentos com chaves compostas, @JsonIgnore permite ignorar
+    a serialização do método ou atributo
+    */
+    @JsonIgnore
     @EmbeddedId
     private ItemPedidoPK id = new ItemPedidoPK();
 
@@ -66,6 +73,7 @@ public class ItemPedido implements Serializable {
     /*
     Os getters para Pedido e Produto permitirão acesso direto a esses objetos por esta entidade
      */
+    @JsonIgnore
     public Pedido getPedido(){
         return id.getPedido();
     }

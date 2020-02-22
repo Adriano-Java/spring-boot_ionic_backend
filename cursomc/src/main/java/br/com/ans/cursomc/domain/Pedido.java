@@ -1,5 +1,8 @@
 package br.com.ans.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -20,6 +23,7 @@ public class Pedido implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date instante;
 
     /*
@@ -27,9 +31,11 @@ public class Pedido implements Serializable {
     * seja também aplicada à entidade associada.
     * mappeBy está relacionando o atributo pedido em Pagamento com esta
     * entidade*/
+    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
     private Pagamento pagamento;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
@@ -39,6 +45,7 @@ public class Pedido implements Serializable {
     private Endereco enderecoDeEntrega;
 
     /*Um pedido pode conter 'N' itens*/
+    /*Na relação Pedido - ItemPedido, essa coleção será serializada automaticamente*/
     @OneToMany(mappedBy = "id.pedido")
     private Set<ItemPedido> itens = new HashSet<>();
 

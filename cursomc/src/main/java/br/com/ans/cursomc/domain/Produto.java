@@ -30,7 +30,8 @@ public class Produto implements Serializable {
     /*@JoinTable = indica qual tabela será a responsável pela relação muitos pra muitos*/
     /*@JsonBackReference = Evita a referência ciclica do relacionamento entre entidades, é
     * complemento da anotação @JsonManagedReference*/
-    @JsonBackReference
+//    @JsonBackReference
+    @JsonIgnore
     @ManyToMany
     @JoinTable(/*Aqui é criada a tabela responsável pela relação entre as tabelas categoria e produto*/
             name = "PRODUTO_CATEGORIA",/*nome da tabela*/

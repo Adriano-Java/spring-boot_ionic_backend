@@ -31,11 +31,11 @@ public class Pedido implements Serializable {
     * seja também aplicada à entidade associada.
     * mappeBy está relacionando o atributo pedido em Pagamento com esta
     * entidade*/
-    @JsonManagedReference
+//    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
     private Pagamento pagamento;
 
-    @JsonManagedReference
+//    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;

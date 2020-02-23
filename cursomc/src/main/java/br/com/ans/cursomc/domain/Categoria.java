@@ -25,7 +25,7 @@ public class Categoria implements Serializable {
     /*@JsonManagedReference = Evita a referência ciclica no JSON para relacionamentos entre entidades*/
     /*mappeBy  = espelha o relacionamento entre as tabelas sendo desnecessário refazer o JoinTable para a
     * entidade do outro lado do relacionamento*/
-    @JsonManagedReference
+//    @JsonManagedReference /*comentada por estar causando problemas*/
     @ManyToMany(mappedBy = "categorias")
     private List<Produto> produtos = new ArrayList<Produto>();
 

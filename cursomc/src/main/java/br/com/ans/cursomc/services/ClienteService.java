@@ -18,7 +18,7 @@ public class ClienteService {
     @Autowired/*Realiza a injeção (instancia o repository) do repository na classe*/
     private ClienteRepository repository;
 
-    public Cliente buscar(Integer id){
+    public Cliente find(Integer id){
         Optional<Cliente> objeto = repository.findById(id);
         return objeto.orElseThrow(() -> new ObjectNotFoundException(
                 id, Cliente.class.getName() + " cliente não encontrado!")

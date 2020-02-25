@@ -30,8 +30,8 @@ public class CategoriaResource {
     * O método find realiza o bind com o serviço para realizar a persistência.
     * Use @PathVariable para mapear no método o id*/
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> find(@PathVariable Integer id){
-        Categoria objeto = service.buscar(id);
+    public ResponseEntity<Categoria> find(@PathVariable Integer id){
+        Categoria objeto = service.find(id);
         return ResponseEntity.ok().body(objeto);
     }
 
@@ -41,5 +41,13 @@ public class CategoriaResource {
         obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    /*Método para realizar o update (PUT)*/
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id){
+        obj.setId(id);
+        obj = service.update(obj);
+        return ResponseEntity.noContent().build();
     }
 }

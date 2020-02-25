@@ -29,8 +29,8 @@ public class PedidoResource {
     * O método find realiza o bind com o serviço para realizar a persistência.
     * Use @PathVariable para mapear no método o id*/
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> find(@PathVariable Integer id){
-        Pedido objeto = service.buscar(id);
+    public ResponseEntity<Pedido> find(@PathVariable Integer id){
+        Pedido objeto = service.find(id);
         return ResponseEntity.ok().body(objeto);
     }
 }

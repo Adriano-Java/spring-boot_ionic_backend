@@ -18,7 +18,7 @@ public class PedidoService {
     @Autowired/*Realiza a injeção (instancia o repository) do repository na classe*/
     private PedidoRepository repository;
 
-    public Pedido buscar(Integer id){
+    public Pedido find(Integer id){
         Optional<Pedido> objeto = repository.findById(id);
         return objeto.orElseThrow(() -> new ObjectNotFoundException(
                 id, Pedido.class.getName() + " pedido não encontrado!")

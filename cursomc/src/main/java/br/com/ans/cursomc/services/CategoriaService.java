@@ -24,4 +24,9 @@ public class CategoriaService {
                 id, Categoria.class.getName() + " categoria não encontrada!")
         );
     }
+
+    public Categoria insert(Categoria obj){
+        obj.setId(null);/*para garantir que o objeto realmente é novo, seu id deve ser nulo*/
+        return repository.save(obj);
+    }
 }

@@ -15,6 +15,7 @@ import java.util.List;
  * cursomc
  * Adriano Neto Da Silva
  * 09/02/2020
+ * Classe que controla as requisições HTTP para a entidade Categoria.
  */
 @RestController/*Anotação que torna a classe um controlador do Spring*/
 @RequestMapping(value = "/categorias")/*Anotação que mapeia a classe*/
@@ -48,6 +49,13 @@ public class CategoriaResource {
     public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id){
         obj.setId(id);
         obj = service.update(obj);
+        return ResponseEntity.noContent().build();
+    }
+
+    /*Método para realizar o delete (DELETE)*/
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable Integer id){
+        service.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

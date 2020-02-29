@@ -1,6 +1,7 @@
 package br.com.ans.cursomc.services;
 
 import br.com.ans.cursomc.domain.Categoria;
+import br.com.ans.cursomc.dto.CategoriaDTO;
 import br.com.ans.cursomc.repositories.CategoriaRepository;
 import br.com.ans.cursomc.services.exceptions.DataIntegrityException;
 import org.hibernate.ObjectNotFoundException;
@@ -59,5 +60,12 @@ public class CategoriaService {
     public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         return repository.findAll(pageRequest);
+    }
+
+    /**
+     * Método para converter um objeto CategoriaDTO em objeto Categoria.
+     */
+    public Categoria fromDTO(CategoriaDTO objDTO){
+        return new Categoria(objDTO.getId(), objDTO.getNome());
     }
 }

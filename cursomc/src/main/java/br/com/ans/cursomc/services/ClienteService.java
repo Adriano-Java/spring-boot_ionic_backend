@@ -44,9 +44,9 @@ public class ClienteService {
         return repository.save(clienteModificado);
     }
 
-    private void updateData(Cliente clienteModificado, Cliente obj) {
-        clienteModificado.setNome(obj.getNome());
-        clienteModificado.setEmail(obj.getEmail());
+    private void updateData(Cliente newObj, Cliente obj) {
+        newObj.setNome(obj.getNome());
+        newObj.setEmail(obj.getEmail());
     }
 
     public void delete(Integer id){

@@ -1,9 +1,15 @@
 package br.com.ans.cursomc.services;
 
+import br.com.ans.cursomc.domain.Cidade;
 import br.com.ans.cursomc.domain.Cliente;
 import br.com.ans.cursomc.domain.Cliente;
+import br.com.ans.cursomc.domain.Endereco;
+import br.com.ans.cursomc.domain.enums.TipoCliente;
 import br.com.ans.cursomc.dto.ClienteDTO;
+import br.com.ans.cursomc.dto.NovoClienteDTO;
+import br.com.ans.cursomc.repositories.CidadeRepository;
 import br.com.ans.cursomc.repositories.ClienteRepository;
+import br.com.ans.cursomc.repositories.EnderecoRepository;
 import br.com.ans.cursomc.services.exceptions.DataIntegrityException;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +32,8 @@ import java.util.Optional;
 public class ClienteService {
     @Autowired/*Realiza a injeção (instancia o repository) do repository na classe*/
     private ClienteRepository repository;
+    @Autowired
+    private EnderecoRepository enderecoRepository;
 
     public Cliente find(Integer id){
         Optional<Cliente> objeto = repository.findById(id);
@@ -33,9 +42,12 @@ public class ClienteService {
         );
     }
 
+    @Transactional/*para garantir que o cliente e seus endereços sejam persistidos na mesma transação*/
     public Cliente insert(Cliente obj){
         obj.setId(null);/*para garantir que o objeto realmente é novo, seu id deve ser nulo*/
-        return repository.save(obj);
+        obj = repository.save(obj);
+        enderecoRepository.saveAll(obj.getEnderecos());
+        return obj;
     }
 
     public Cliente update(Cliente obj){
@@ -74,5 +86,26 @@ public class ClienteService {
      */
     public Cliente fromDTO(ClienteDTO objDTO){
         return new Cliente(objDTO.getId(), objDTO.getNome(), objDTO.getEmail(), null, null);
+    }
+
+    /**
+     * Método para converter um objeto NovoClienteDTO em objeto Cliente.
+     */
+    public Cliente fromDTO(NovoClienteDTO objDTO){
+        Cliente cliente = new Cliente(null, objDTO.getNome(), objDTO.getEmail(), objDTO.getCpfOuCnpj(), TipoCliente.toEnum(objDTO.getTipo()));
+        Cidade cidade = new Cidade(objDTO.getCidadeId(), null, null);
+        Endereco endereco = new Endereco(null, objDTO.getLogradouro(), objDTO.getNumero(), objDTO.getComplemento(), objDTO.getBairro(), objDTO.getCep(), cliente, cidade);
+        cliente.getEnderecos().add(endereco);
+        cliente.getTelefones().add(objDTO.getTelefone1());
+
+        if (objDTO.getTelefone2() != null) {
+            cliente.getTelefones().add(objDTO.getTelefone2());
+        }
+
+        if (objDTO.getTelefone3() != null) {
+            cliente.getTelefones().add(objDTO.getTelefone3());
+        }
+
+        return cliente;
     }
 }

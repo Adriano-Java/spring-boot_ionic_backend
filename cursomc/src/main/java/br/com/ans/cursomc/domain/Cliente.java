@@ -28,7 +28,8 @@ public class Cliente implements Serializable {
     private Integer tipo;
 
 //    @JsonManagedReference
-    @OneToMany(mappedBy = "cliente")
+    /*CascadeType.ALL permite apagar todos os endereços relacionados com o cliente que será excluído*/
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Endereco> enderecos = new ArrayList<>();
 
     @ElementCollection/*mapeia uma coleção de itens associados a uma classe*/

@@ -20,7 +20,6 @@ public class PedidoResource {
     @Autowired
     private PedidoService service;
 
-
     /*Para que o método mapeie o serviço, use 'value' indicando o id
     * do objeto/tabela.
     * Use ResponseEntity<> no lugar do objeto que normalmente seria utilizado.

@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * cursomc
@@ -36,6 +38,10 @@ public class ItemPedido implements Serializable {
         this.desconto = desconto;
         this.quantidade = quantidade;
         this.preco = preco;
+    }
+
+    public Double getSubTotal(){
+        return (preco - desconto) * quantidade;
     }
 
     public ItemPedidoPK getId() {
